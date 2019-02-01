@@ -5,6 +5,7 @@ from keras.models import Sequential
 from keras.layers import Dense, Activation
 from keras.optimizers import SGD
 from keras.utils import np_utils
+from make_tensorboard import make_tensorboard
 
 np.random.seed(1617) #for reproducibility
 
@@ -42,4 +43,16 @@ Y_test = np_utils.to_categorical(y_test, NB_CLASSES)
 model = Sequential()
 model.add(Dense(NB_CLASSES, input_shape=(RESHAPED,)))
 model.add(Activation('softmax'))
+
 model.summary()
+
+model.complile(loss='categorical_crossentropy', optimizer=OPTIMIZER, metrics=['accuracy'])
+
+callbacks = [make_tensorboard(set_dir_name='keras_MNIST_V1')]
+
+model.fit(X_train, Y_train, batch_size=BATCH_SIZE, epochs=NB_EPOCH, \
+        callbacks=callbacks, verbose=VERBOSE, validation_split=VALIDATION_SPLIT)
+
+score = model.evaluate(X_test, Y_test, verbose=VERBOSE)
+print("Test score:", score[0])
+print('Test accuracy:', score[1])
