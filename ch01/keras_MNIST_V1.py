@@ -46,7 +46,7 @@ model.add(Activation('softmax'))
 
 model.summary()
 
-model.complile(loss='categorical_crossentropy', optimizer=OPTIMIZER, metrics=['accuracy'])
+model.compile(loss='categorical_crossentropy', optimizer=OPTIMIZER, metrics=['accuracy'])
 
 callbacks = [make_tensorboard(set_dir_name='keras_MNIST_V1')]
 
