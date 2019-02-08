@@ -1,1 +1,3 @@
 logdir_lenet/
+logdir_cifar10_net/
+logdir_cifar10_deep_aug_net/
