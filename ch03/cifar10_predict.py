@@ -27,7 +27,7 @@ images = np.asarray(images)
 
 predicted = model.predict_classes(images)
 
-assert predicted[0] == 3, "image should be cat."
-assert predicted[1] == 5, "image should be dog."
+assert predicted[1] == 3, "image should be cat."
+assert predicted[0] == 5, "image should be dog."
 
 print("You can detect cat & dog!")
