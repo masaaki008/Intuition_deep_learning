@@ -11,7 +11,7 @@ from keras.callbacks import TensorBoard
 from keras.datasets import mnist
 from keras_adversarial.image_grid_callback import ImageGridCallback
 from keras_adversarial import AdversarialModel, simple_gan, gan_targets
-from keras_adversarial import AdversarialOptimizerSimuktaneous, normal_latent_sampling
+from keras_adversarial import AdversarialOptimizerSimultaneous, normal_latent_sampling
 from image_utils import dim_ordering_fix, dim_ordering_input, dim_ordering_reshape, dim_ordering_unfix
 
 #This line allows mpl to run with no DISPLAY defind
