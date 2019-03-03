@@ -76,7 +76,7 @@ def generator_sampler(latent_dim, generator):
 
     return fun
 
-if __name__ = "__main__":
+if __name__ == "__main__":
     #z \in R^100
     latent_dim = 100
     #x \in R^{28*28}
