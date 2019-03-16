@@ -17,7 +17,7 @@ from image_utils import dim_ordering_fix, dim_ordering_input, dim_ordering_resha
 #This line allows mpl to run with no DISPLAY defind
 mpl.use("Agg")
 
-def model_generartor():
+def model_generator():
     nch = 256
     g_input = Input(shape=[100])
     H = Dense(nch * 14 * 14)(g_input)
@@ -99,14 +99,14 @@ if __name__ == "__main__":
                             player_params=[generator.trainable_weights,
                                             discriminator.trainable_weights],
                             player_names=["generator", "discriminator"])
-    model.adversarial_compile(adversarial_optimizer=AdversarialOptimizerSimuktaneous(),
+    model.adversarial_compile(adversarial_optimizer=AdversarialOptimizerSimultaneous(),
                             player_optimizers=[Adam(1e-4, decay=1e-4),
                                                 Adam(1e-3, decay=1e-4)],
                             loss="binary_crossentropy")
 
     #train model
     generator_cb = ImageGridCallback("output/gan_convolutional/epoch-{:03d}.png",
-                                    genarator_sampler(latent_dim, generator))
+                                    generator_sampler(latent_dim, generator))
     callbacks = [generator_cb]
     if K.backend() == "tensorflow":
         callbacks.append(
@@ -114,11 +114,11 @@ if __name__ == "__main__":
                         histogram_freq=0, write_graph=True, write_images=True))
 
     xtrain, xtest = mnist_data()
-    xtrain = dim_ordering_fix(xtrain.reshapea((-1, 1, 28, 28)))
+    xtrain = dim_ordering_fix(xtrain.reshape((-1, 1, 28, 28)))
     xtest = dim_ordering_fix(xtest.reshape((-1, 1, 28, 28)))
     y = gan_targets(xtrain.shape[0])
     ytest = gan_targets(xtest.shape[0])
-    history = model.fix(x=xtrain, y=y, validation_data=(xtest, ytest),
+    history = model.fit(x=xtrain, y=y, validation_data=(xtest, ytest),
                         callbacks=[generator_cb], epochs=100,
                         batch_size=32)
     df = pd.DataFrame(history.history)
